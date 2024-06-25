@@ -15,7 +15,7 @@ public class MultiSFTPDownload {
 
 
     public static void main(String[] args) {
-        String configFilePath = "src/main/java/config_SFTP_Server/servers_config.json";
+        String configFilePath = "src/main/resources/servers_config.json";
 
         try (FileReader reader = new FileReader(configFilePath)) {
             // Đọc file cấu hình JSON
@@ -25,14 +25,16 @@ public class MultiSFTPDownload {
             List<ServerConfig> serverConfigs = gson.fromJson(reader, listType);
 
             for (ServerConfig config : serverConfigs) {
+                // download file STB
                 if(config.getName().equals("STB")){
                     SFTPDownload.downloadNewestFileFromSFTP(config);
 
                 }
-//                if(config.getName().equals("IRIS")){
-//                    SFTPDownload.downloadNewestFileFromSFTP(config);
-//
-//                }
+                // download file IRIS
+                if(config.getName().equals("IRIS")){
+                    SFTPDownload.downloadNewestFileFromSFTP(config);
+
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
