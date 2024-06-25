@@ -1,0 +1,20 @@
+[
+  {
+    "Name": "STB",
+    "IP": "192.168.1.1",
+    "Port": "22",
+    "Username": "user1",
+    "Password": "password1",
+    "DownloadPath": "/remote/path/to/stbfile.txt",
+    "SavePath": "src/main/java/stb"
+  },
+  {
+    "Name": "IRIS",
+    "IP": "192.168.1.2",
+    "Port": "22",
+    "Username": "user2",
+    "Password": "password2",
+    "DownloadPath": "/remote/path/to/irisfile.txt",
+    "SavePath": "src/main/java/iris"
+  }
+]
