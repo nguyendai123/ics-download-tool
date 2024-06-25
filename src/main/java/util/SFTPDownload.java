@@ -18,6 +18,7 @@ public class SFTPDownload {
         ChannelSftp channelSftp = null;
 
         try {
+            //Tạo kết nối đến SFTP server bằng jsch
             JSch jsch = new JSch();
             session = jsch.getSession(config.getUsername(), config.getIp(), Integer.parseInt(config.getPort()));
             session.setPassword(config.getPassword());
@@ -30,6 +31,7 @@ public class SFTPDownload {
 
             channelSftp = (ChannelSftp) session.openChannel("sftp");
             channelSftp.connect();
+            // Tạo kết nối xong
 
             // Liệt kê các file trong thư mục, chọn file mới nhất
             Vector<ChannelSftp.LsEntry> files = channelSftp.ls(config.getDownloadPath());
@@ -43,6 +45,7 @@ public class SFTPDownload {
                 }
             }
 
+            //Download file trên sFTP server(remoteFilePath) về local(localFilePath) với tên file tương ứng
             if (newestFile != null) {
                 String remoteFilePath = config.getDownloadPath() + newestFile.getFilename();
                 String localFilePath = config.getSavePath() + newestFile.getFilename();
@@ -69,7 +72,9 @@ public class SFTPDownload {
             } else {
                 System.out.println("No files found in directory " + config.getDownloadPath());
             }
-            // demo copy file sang thu muc khac
+            // Tải file, lưu file xuống local xong
+
+            // demo copy file mới nhất trong thư mục này sang thư mục khác
             String sourceDir = "src/main/java/stb";
             String destDir = "src/main/java/stbcopy";
 
@@ -86,10 +91,13 @@ public class SFTPDownload {
             } else {
                 System.out.println("No files found in directory " + sourceDir);
             }
+            //kết thúc demo
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         finally {
+            //Đóng các kết nối channelSftp - session
             if (channelSftp != null && channelSftp.isConnected()) {
                 channelSftp.disconnect();
             }
